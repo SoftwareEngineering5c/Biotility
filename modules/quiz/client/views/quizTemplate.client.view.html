@@ -14,13 +14,8 @@
     
 </div>
 
+<div id = "QuizView" ui-view class = "margin-top-50" ng-controller = "QuizController" >
 
-
-<div ui-view class = "margin-top-50" ng-controller = "QuizController" >
-     <div style="margin-top:100px;">
-
-        <!-- Using this for space -->
-    </div>
 	<div class = "container" >
 		<span ng-bind="question.description"></span>
 	  	<div class = "col-md-10 col-md-offset-1">
@@ -29,7 +24,7 @@
 	  			<button class = "btn btn-primary btn-block" value = "start" ng-click = "start()" ng-show = "hasStart" > Start </button>
 	  			<button class = "btn btn-primary btn-block" ui-sref = "quiz.results({correctScore: score, numQuestion: numQuestion, category: currCategory}) " ng-show = "isDone" value = "finished"> Finished </button>
 	  			<h1 ng-show = "hasError"> Error Occured: Category does not have any questions </h1>
-
+	  		</div>
 
 
 	  		<div id = "quizContent" ng-show = "isStart">
