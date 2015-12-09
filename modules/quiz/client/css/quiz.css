@@ -13,6 +13,7 @@ body {
 .startButton {
 	color: black;
 	margin-top: 100px;
+	text-align: center;
 	border-style: solid;
 }
 
@@ -27,3 +28,4 @@ body {
 	font-size: 30px;
 	text-align: center;
 }
+

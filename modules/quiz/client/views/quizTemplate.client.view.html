@@ -16,17 +16,20 @@
 
 
 
-<div ui-view class = "margin-top-50" ng-controller = "QuizController" ng-init = "getQuestion()">
-    <div>
+<div ui-view class = "margin-top-50" ng-controller = "QuizController" >
+     <div style="margin-top:100px;">
+
         <!-- Using this for space -->
     </div>
 	<div class = "container" >
 		<span ng-bind="question.description"></span>
 	  	<div class = "col-md-10 col-md-offset-1">
-	  		<div class = "startButton" ng-hide = "isStart" style = "text-align: center;">
-	  			<button class = "btn btn-primary btn-block" ng-click = "start()" ng-hide = "isDone" > Start </button>
-	  			<button class = "btn btn-primary btn-block" ui-sref = "quiz.results({correctScore: score, numQuestion: numQuestion, category: currCategory}) " ng-show = "isDone" > Finished </button>
-	  		</div>
+
+	  		<div id = "startButton" ng-hide = "isStart">
+	  			<button class = "btn btn-primary btn-block" value = "start" ng-click = "start()" ng-show = "hasStart" > Start </button>
+	  			<button class = "btn btn-primary btn-block" ui-sref = "quiz.results({correctScore: score, numQuestion: numQuestion, category: currCategory}) " ng-show = "isDone" value = "finished"> Finished </button>
+	  			<h1 ng-show = "hasError"> Error Occured: Category does not have any questions </h1>
+
 
 
 	  		<div id = "quizContent" ng-show = "isStart">
@@ -52,7 +55,7 @@
 					<tt>Actual Answer = {{questions[index].correctAnswer}}</tt><br/>
 					<!--ng-click="increment()"-->
 
-					<button class = "btn" ng-hide = "isDone" ng-click = "checkAnswer(answer)" > Next</button>
+					<button class = "btn" value = "next" ng-hide = "isDone" ng-click = "checkAnswer(answer)" > Next</button>
 				</form>
 			</div>
 
