@@ -10,18 +10,25 @@ angular.module('quiz').controller('QuizController', ['$scope', 'QuizQuestion','$
     $scope.isStart = false; //checks if quiz start button is triggered
 
     $scope.questions = [];
-    var max = null;
+    var max = 0;
     $scope.isMultipleChoice = false;
     $scope.index = -1;
     $scope.score = 0;
     $scope.numQuestion = 0;
-
+    $scope.hasError = false;
+    $scope.hasStart = true;
     $scope.currCategory = $stateParams.courseName;
 
     $scope.start = function() {
-      $scope.isStart = true;
-      $scope.increment();
-      max = $scope.questions.length - 1; // (Index of array starts as 0)
+      if (max === 0) {
+        console.log(max);
+        $scope.hasError = true;
+        $scope.hasStart = false;
+      }else {
+        $scope.isStart = true;
+        $scope.increment();
+        max = $scope.questions.length - 1; // (Index of array starts as 0)
+      }
     };
 
     $scope.checkAnswer = function(answer) {
@@ -38,6 +45,7 @@ angular.module('quiz').controller('QuizController', ['$scope', 'QuizQuestion','$
         console.log("Done");
         $scope.isDone = true;
         $scope.isStart = false;
+        $scope.hasStart = false;
       } else {
         $scope.index = ($scope.index + 1) % $scope.questions.length;
 
@@ -47,32 +55,30 @@ angular.module('quiz').controller('QuizController', ['$scope', 'QuizQuestion','$
           $scope.isMultipleChoice = true;
         }
         $scope.numQuestion++;
-        console.log("Max index is " + max);
-        console.log("Index is " + $scope.index);
-        console.log("Score is " + $scope.score);
+        // console.log("Max index is " + max);
+        // console.log("Index is " + $scope.index);
+        // console.log("Score is " + $scope.score);
       }
     };
 
-    $scope.getQuestion = function() {
-      $http.get('/api/quiz', {params: {"category": $stateParams.courseName} }).then(
-        function(listOfQuestions) { //Checks to see if the value is correctly returned before printing out the console.
-          console.log(listOfQuestions.data);
-          $scope.questions = listOfQuestions.data;
-        });
-    };
+
+    $http.get('/api/quiz', {params: {"category": $stateParams.courseName} }).then(
+      function(listOfQuestions) { //Checks to see if the value is correctly returned before printing out the console.
+        console.log("List of questions: " + listOfQuestions.data);
+        byCategory(listOfQuestions.data);
+      });
+
 
     console.log("Category before the switch to applications: " + $scope.currCategory);
     $scope.currCategory = "Applications"; //temp change for current results
 
-    $scope.byCategory = function(listOfQuestions) {
+    var byCategory = function(listOfQuestions) {
       console.log("By category");
-      console.log(listOfQuestions);
       for (var i = 0 ; i < listOfQuestions.length; i++) {
         if (listOfQuestions[i].category === $scope.currCategory) {
          $scope.questions.push(listOfQuestions[i]);
         }
       }
-      console.log($scope.questions);
       max = $scope.questions.length;
     };
 
