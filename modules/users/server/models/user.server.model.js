@@ -101,6 +101,20 @@ var UserSchema = new Schema({
     },
     resetPasswordExpires: {
         type: Date
+    },
+    courses: {
+        courseName: {
+            type: String
+        },
+        content: {
+            type: String
+        },
+        progress: {
+            type: String
+        },
+        section: {
+            type: String
+        }
     }
 });
 
@@ -170,5 +184,6 @@ UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
         }
     });
 };
+
 
 mongoose.model('User', UserSchema);

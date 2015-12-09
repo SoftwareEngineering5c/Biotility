@@ -21,6 +21,10 @@ var questionSchema = new Schema({
 
 });
 
+questionSchema.methods.getQuizResults = function(userID) {
+
+};
+
 var gradeSchema = new Schema ({
 	category : {type: String, required: true},
 	studentName : {type: String, required: true},

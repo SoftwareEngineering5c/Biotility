@@ -1,12 +1,21 @@
-<div class = "margin-top-50" ng-controller = "QuizResults">
-	<div style="margin-top: 100px;">
+<div ng-controller = "QuizResults">
+	<div>
         <!-- Using this for space -->
     </div>
-	<div class = "container" >
+
+<!-- 	<div class = "container" >
 		<br>
 		<h1> Yay you finished the section</h1>
 
 			<h2>You got a  <div id = "results">{{score}} / {{totalNumQuestion}} </div> </h2>
 		</h2>
-	</div>
+	</div> -->
+		<div class = "container" >
+			<br>
+			<div class="results-h"> Congratulations!</div>
+			<div class="results-s" id = "results" >
+				You got {{score}} / {{totalNumQuestion}} questions correct.
+			</h2>
+		</div>
+
 </div>
