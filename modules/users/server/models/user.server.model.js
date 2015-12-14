@@ -84,6 +84,7 @@ var UserSchema = new Schema({
         default: "Student"
     },
     coursesTeaching: [Number],
+
     courseCode: {
       type: Number,
       trim: true
@@ -102,7 +103,7 @@ var UserSchema = new Schema({
     resetPasswordExpires: {
         type: Date
     },
-    courses: {
+    courses: [{
         courseName: {
             type: String
         },
@@ -114,8 +115,11 @@ var UserSchema = new Schema({
         },
         section: {
             type: String
+        },
+        number : {
+            type: Number
         }
-    }
+    }]
 });
 
 /**

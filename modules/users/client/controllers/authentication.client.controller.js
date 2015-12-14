@@ -12,6 +12,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
     // credentials object
     $scope.credentials = {};
+    $scope.credentials.courses = [];
     $scope.credentials.coursesTeaching = [];
 
     // array of class names
@@ -30,7 +31,18 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
     $scope.add = function(course) {
       if (course !== '') {
-        $scope.credentials.coursesTeaching.push(course);
+
+        //Creates a new object to be used for user course schema
+        var courseObj = {};
+        courseObj.courseName = course;
+        courseObj.content = "";
+        courseObj.progress = "";
+        courseObj.section = "";
+
+        //Generate number when you add the course
+        courseObj.number = Math.floor((Math.random() * 1000) + 1);
+        $scope.credentials.courses.push(courseObj);
+
       }
 
       $scope.toAdd = '';
@@ -47,10 +59,14 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
       // Add displayName
       $scope.credentials.displayName = $scope.credentials.lastName + ', ' + $scope.credentials.firstName;
-
+      
       console.log($scope.credentials);
-
-      $http.post('/api/auth/signup', $scope.credentials).success(function(response) {
+      var route = '/api/auth/signup/';
+      if ($scope.credentials.profileType === "Student") {
+        route = '/api/auth/signup/student';
+        console.log("Is a student");
+      }
+      $http.post(route, $scope.credentials).success(function(response) {
 
         // If successful we assign the response to the global user model
         $scope.authentication.user = response;
@@ -65,6 +81,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         $scope.error = response.message;
         console.log(response);
       });
+
     };
 
     $scope.signin = function(isValid) {

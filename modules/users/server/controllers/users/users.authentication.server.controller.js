@@ -18,37 +18,87 @@ var noReturnUrls = [
 /**
  * Signup
  */
-exports.signup = function(req, res) {
+exports.signupStudent = function(req, res) {
+     // First looks through Teachers course code
+    User.findOne({
+            'profileType' : "Teacher",
+            'courses.number': req.body.courseCode
+        },
+        function(err, user) {
+            if (user) {  // if exists, authenticate with provided password.
+                ///////Previous Code/////
+                // Init Schema
+                var newUser = new User(req.body);
 
+                // potential error message
+                var message = null;
+
+                // Then save the user
+                newUser.save(function(err) {
+                    if (err) {
+                      return res.status(400).send({
+                          message: errorHandler.getErrorMessage(err),
+                          tried: newUser
+                      });
+                    } else {
+                        // Remove sensitive data before login
+                        newUser.password = undefined;
+                        newUser.salt = undefined;
+
+                        req.login(newUser, function(err) {
+                            if (err) {
+                              return res.status(403).send({
+                                  message: errorHandler.getErrorMessage(err)
+                              });
+                            } else {
+                                res.json(newUser);
+                            }
+                        });
+                    }
+                });
+                //////End of Previous Code//////
+
+            } else {
+                // no user found, send error.
+                res.status(500).send("No teacher code found.");
+            }
+        });
+
+
+};
+
+exports.signup = function(req, res) {
+    ///////Previous Code/////
     // Init Schema
-    var user = new User(req.body);
+    var newUser = new User(req.body);
 
     // potential error message
     var message = null;
 
     // Then save the user
-    user.save(function(err) {
+    newUser.save(function(err) {
         if (err) {
           return res.status(400).send({
               message: errorHandler.getErrorMessage(err),
-              tried: user
+              tried: newUser
           });
         } else {
             // Remove sensitive data before login
-            user.password = undefined;
-            user.salt = undefined;
+            newUser.password = undefined;
+            newUser.salt = undefined;
 
-            req.login(user, function(err) {
+            req.login(newUser, function(err) {
                 if (err) {
                   return res.status(403).send({
                       message: errorHandler.getErrorMessage(err)
                   });
                 } else {
-                    res.json(user);
+                    res.json(newUser);
                 }
             });
         }
     });
+    //////End of Previous Code//////
 };
 
 /**
