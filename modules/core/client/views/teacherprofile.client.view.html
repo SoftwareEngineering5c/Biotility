@@ -52,9 +52,10 @@
       </div>
     </div>
   <!--</div>-->
-  <!--class scores-->
+  <!--class codes-->
   <div class="row">
     <div class="col-md-9 col-md-offset-3" ng-show="profileVisible">
+      <!--table to put in class codes-->
       <table class="table table-bordered" style = "width: 30%;margin-left:-2px" border-spacing: "5px">
         <caption>Class codes for students to register</caption>
     <thead>
@@ -62,6 +63,7 @@
       <th>Codes</th>
     </thead>
     <tbody>
+      <!--gets class codes from controller-->
       <tr ng-repeat="d in input.courseNums">
         <td>{{d}}</td>
       </tr>
@@ -69,7 +71,7 @@
   </table>
 
 
-
+    <!--class scores-->
       <h2>Class Scores</h2>
       <h3>Select a class below</h3>
       <script type="text/ng-template" id="group-template.html">
