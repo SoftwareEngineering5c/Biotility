@@ -104,7 +104,7 @@ ApplicationConfiguration.registerModule('core.admin', ['core']);
 ApplicationConfiguration.registerModule('core.admin.routes', ['ui.router']);
 
 //register module for quiz is ran twice, had an error where quiz.client.module didn't work but left it there for sake of clarity
-ApplicationConfiguration.registerModule('quiz');
+//ApplicationConfiguration.registerModule('quiz');
 
 'use strict';
 
@@ -163,6 +163,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         params: {
           correctScore: null,
           numQuestion: null,
+          category: null,
         }
       })
       .state('resources', {
@@ -179,7 +180,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       })
       .state('teacherprofile', {
         url: '/teacher/{userName:.+}',
-        templateUrl: 'modules/core/client/views/profile.client.view.html'
+        templateUrl: 'modules/core/client/views/teacherprofile.client.view.html'
       })
       .state('userData', {
         url: '/data/users',
@@ -299,6 +300,7 @@ angular.module('core').controller('MainController', ['$scope', '$state', '$locat
 
         Subjects.loadSubjects().then(function(response) {
           $scope.subjects = response.data;
+            //console.log($scope.subjects);
         });
 
         $scope.gotoQuiz = function(subjectObj) {
@@ -308,6 +310,7 @@ angular.module('core').controller('MainController', ['$scope', '$state', '$locat
         $scope.gotoResource = function(subjectObj) {
             $location.path('/' + subjectObj.name + '/resources');
         };
+
 
     }
 ]);
@@ -319,22 +322,33 @@ angular.module('core').controller('SubjectController', ['$scope', '$state', '$lo
 
         $scope.subject = $stateParams.courseName;
 
+		$scope.startQuiz = function(){
+			$location.path('/' + $scope.subject + '/quiz');
+		};
+
     }
 ]);
 
-angular.module('core').controller('ProfileController', ['$scope', '$state', '$location', 'Authentication',
-    function ($scope, $state, $location, Authentication) {
+angular.module('core').controller('ProfileController', ['$scope', '$state', '$location', 'Authentication', '$http',
+    function ($scope, $state, $location, Authentication, $http) {
 
         $scope.authentication = Authentication;
         $scope.user = $scope.authentication.user;
 
-        $scope.oneAtATime = true;
+        console.log($scope.user);
 
+        $scope.oneAtATime = true;
+        $scope.isTeacher = false;
+        $scope.profileVisible = true;
+
+        if ($scope.profileType === "Teacher") {
+            $scope.isTeacher = true;
+        }
         $scope.groups = [
             {
                 title: 'Cells',
                 content: 'Lesson 4: The Nucleus',
-                progress: 60
+                progress: 0
             },
             {
                 title: 'Biology',
@@ -350,11 +364,59 @@ angular.module('core').controller('ProfileController', ['$scope', '$state', '$lo
 
         $scope.items = ['Item 1', 'Item 2', 'Item 3'];
 
-
         $scope.status = {
             isFirstOpen: true,
             isFirstDisabled: false
         };
+
+        $scope.$on('creation', function(event, args) {
+            console.log(args);
+            console.log("controller2");
+            $scope.test = "TESTING";
+            console.log($scope.section);
+            $scope.section = args.firstName;
+            console.log($scope.section);
+
+        });
+
+        $scope.studentGrades = [];
+        $http.get('/api/quiz_result')
+          .success(function(res) {
+            console.log("quiz result: ", res);
+            byStudent(res);
+          });
+
+        var byStudent = function(allStudentGrades) {
+            for (var i = 0 ; i < allStudentGrades.length; i++) {
+                console.log(allStudentGrades[i].studentName);
+                console.log($scope.user.userName);
+                console.log("BANG: " + allStudentGrades[i].studentName + " " + $scope.user.userName);
+                if (allStudentGrades[i].studentName === $scope.user.userName) {
+                    $scope.studentGrades.push(allStudentGrades[i]);
+                    //TODO: "Applications" should be the name of the course, like "Biology"
+                    //TODO: quiz should have a pass/fail variable, to determine if adding to progress.
+                    /*
+                    for (var j = 0; j < $scope.groups.length; j++) {
+                        if (allStudentGrades[i].category === $scope.groups[j].title) {
+                            if (allStudentGrades[i].pass == true) {
+                                //add progress to group
+                            }
+                        }
+                    }
+                    */
+                    if (allStudentGrades[i].category === "Applications") {
+                        //have to hardcode this until what "applications" is, is resolved
+                        $scope.groups[0].progress++;
+                        //TODO: this should be:
+                        /* if (allStudentGrades[i].pass == true) { */
+                    }
+                }
+             //console.log($scope.studentGrades[i].studentName);
+
+            }
+            $scope.groups[0].progress *= 25;
+        };
+
     }
 ]);
 
@@ -488,64 +550,6 @@ angular.module('core').factory('authInterceptor', ['$q', '$injector',
 // Main service for holding persistent data
 angular.module('core').service('Subjects', ['$http', function($http) {
 
-  // Array of the subjects we have.
-  // 	{
-  // 		name: "Cells",
-  // 		img: "modules/core/client/img/subject_icons/cells.png",
-  // 		description: "Cells (general), Cell Structures and Organelles, Photosynthesis"
-  // 	},
-  // 	{
-  // 		name: "Chemistry & Biochemistry",
-  // 		img: "modules/core/client/img/subject_icons/chemistry.png",
-  // 		description: "Chemicals are cool."
-  // 	},
-  // 	{
-  // 		name: "Genetics",
-  // 		img: "modules/core/client/img/subject_icons/genetics.png",
-  // 		description: "GENES GENES GENES GENES GENES GENES"
-  // 	},
-  // 	{
-  // 		name: "Laboratory Skills and Applications",
-  // 		img: "modules/core/client/img/subject_icons/lab.png",
-  // 		description: "Lab Lab Lab"
-  // 	},
-  // 	{
-  // 		name: "Research and Scientific Method",
-  // 		img: "modules/core/client/img/subject_icons/research.png",
-  // 		description: "Research is Cool"
-  // 	},
-  // {
-  // 		name: "General Topics",
-  // 		img: "modules/core/client/img/subject_icons/general.jpg",
-  // 		description: "I love generalized topics"
-  // 	},
-  // {
-  // 		name: "Applied Mathematics",
-  // 		img: "modules/core/client/img/subject_icons/math.jpg",
-  // 		description: "Yay math"
-  // 	},
-  // {
-  // 		name: "Biotechnology Skills",
-  // 		img: "modules/core/client/img/subject_icons/skills.jpg",
-  // 		description: "Mad skillz"
-  // 	},
-  // {
-  // 		name: "Laboratory Equipment",
-  // 		img: "modules/core/client/img/subject_icons/equip.jpg",
-  // 		description: "centrifuge!"
-  // 	},
-  // {
-  // 		name: "Preparing Solutions",
-  // 		img: "modules/core/client/img/subject_icons/solution.png",
-  // 		description: "Mix it up"
-  // 	},
-  // {
-  // 		name: "Workplace Safety and Behavior",
-  // 		img: "modules/core/client/img/subject_icons/work.png",
-  // 		description: "Be professional."
-  // 	}
-  //
-
   // Array for question objects we have for the selected subject.
   this.questionsForSubject = [{}];
 
@@ -671,41 +675,41 @@ angular.module('core').service('Socket', ['Authentication', '$state', '$timeout'
 // Setting up route
 angular.module('quiz').config(['$stateProvider',
   function ($stateProvider) {
-    //Quiz state routing
 
-    // $stateProvider
-    //     .state('quiz_sample', {
-    //         url: '/quiz_sample',
-    //         templateUrl: 'modules/quiz/client/views/quizTemplate.client.view.html'
-    //     })
-    //     .state('quiz_test', {
-    //         url: '/quiz_test',
-    //         templateUrl: 'modules/quiz/client/views/quizTest.client.view.html'
-    //     });
   }
 ]);
 
 'use strict';
 
 // Quiz main controller
-angular.module('quiz').controller('QuizController', ['$scope', 'QuizQuestion', '$stateParams', '$state', '$http',
-  function($scope, QuizQuestion, $stateParams, $state, $http) {
+angular.module('quiz').controller('QuizController', ['$scope', 'QuizQuestion','$stateParams', '$state', 'Authentication', '$http',
+  function ($scope, QuizQuestion, $stateParams, $state, Authentication, $http) {
+    $scope.authentication = Authentication;
+    console.log($scope.authentication.user);
+
     $scope.isDone = false; //checks if the quiz is finished ->switches models to done state
     $scope.isStart = false; //checks if quiz start button is triggered
 
     $scope.questions = [];
-    var max = null;
+    var max = 0;
     $scope.isMultipleChoice = false;
     $scope.index = -1;
     $scope.score = 0;
     $scope.numQuestion = 0;
-
-    var currCategory = $stateParams.courseName;
+    $scope.hasError = false;
+    $scope.hasStart = true;
+    $scope.currCategory = $stateParams.courseName;
 
     $scope.start = function() {
-      $scope.isStart = true;
-      $scope.increment();
-      max = $scope.questions.length - 1; // (Index of array starts as 0)
+      if (max === 0) {
+        console.log(max);
+        $scope.hasError = true;
+        $scope.hasStart = false;
+      }else {
+        $scope.isStart = true;
+        $scope.increment();
+        max = $scope.questions.length - 1; // (Index of array starts as 0)
+      }
     };
 
     $scope.checkAnswer = function(answer) {
@@ -722,6 +726,7 @@ angular.module('quiz').controller('QuizController', ['$scope', 'QuizQuestion', '
         console.log("Done");
         $scope.isDone = true;
         $scope.isStart = false;
+        $scope.hasStart = false;
       } else {
         $scope.index = ($scope.index + 1) % $scope.questions.length;
 
@@ -731,35 +736,64 @@ angular.module('quiz').controller('QuizController', ['$scope', 'QuizQuestion', '
           $scope.isMultipleChoice = true;
         }
         $scope.numQuestion++;
-        console.log("Max index is " + max);
-        console.log("Index is " + $scope.index);
-        console.log("Score is " + $scope.score);
+        // console.log("Max index is " + max);
+        // console.log("Index is " + $scope.index);
+        // console.log("Score is " + $scope.score);
       }
-
-
     };
 
-    $scope.getQuestion = function() {
-      $http.get('/api/quiz', {params: {"category": $stateParams.courseName} }).then(
-        function(listOfQuestions) { //Checks to see if the value is correctly returned before printing out the console.
-          console.log(listOfQuestions.data);
-          $scope.questions = listOfQuestions.data;
-        });
+
+    $http.get('/api/quiz', {params: {"category": $stateParams.courseName} }).then(
+      function(listOfQuestions) { //Checks to see if the value is correctly returned before printing out the console.
+        console.log("List of questions: " + listOfQuestions.data);
+        byCategory(listOfQuestions.data);
+      });
+
+
+    console.log("Category before the switch to applications: " + $scope.currCategory);
+    $scope.currCategory = "Applications"; //temp change for current results
+
+    var byCategory = function(listOfQuestions) {
+      console.log("By category");
+      for (var i = 0 ; i < listOfQuestions.length; i++) {
+        if (listOfQuestions[i].category === $scope.currCategory) {
+         $scope.questions.push(listOfQuestions[i]);
+        }
+      }
+      max = $scope.questions.length;
     };
 
-    //console.log("Category before the switch to applications: " + currCategory);
+  }//End of function for controller
 
-  } //End of function for controller
 ]);
 
 /*
 Controller for the finished quiz results
 */
-angular.module('quiz').controller('QuizResults', ['$scope', '$stateParams',
-  function($scope, $stateParams) {
-    console.log($stateParams.correctScore);
+
+angular.module('quiz').controller('QuizResults', ['$http', '$scope','$stateParams', 'Authentication',
+  function ($http, $scope, $stateParams, Authentication) {
+    $scope.authentication = Authentication;
+    $scope.user = $scope.authentication.user;
+
     $scope.score = $stateParams.correctScore;
     $scope.totalNumQuestion = $stateParams.numQuestion;
+    
+    //Creates a new student grades and stores it into collection view StudentGrades
+    var studentGrades = {
+      category :    $stateParams.category,
+      studentName : $scope.user.userName,
+      score :       $scope.score,
+      totalNum:     $stateParams.numQuestion
+    };
+
+    console.log($scope.user.userName + " " + $stateParams.correctScore + " " +  $stateParams.category);
+    
+    $http.post('/api/quiz_result', studentGrades)
+      .success(function(res){
+        console.log (res);
+      });
+
   }
 ]);
 
@@ -854,10 +888,6 @@ angular.module('quiz').factory('QuizQuestion', ['$resource',
 			method: 'GET',
 			url:'/api/quiz',
 			isArray: true, 
-		},
-		updateScore: {
-			method: 'PUT',
-			url: '/api/quiz_result'
 		}
 	});
   }
@@ -976,6 +1006,18 @@ angular.module('users').config(['$stateProvider',
         url: '/signin?err',
         templateUrl: 'modules/users/client/views/authentication/signin.client.view.html'
       })
+
+      .state('teacherProfileTeacherView', {
+        url: '/list/students',
+        templateUrl: 'modules/core/client/views/studentProfileTeacherView.client.view.html',
+        params: {
+          username: "Username",
+          email: "email",
+          firstname: "first",
+          lastname: "last",
+        }
+      })
+
       .state('studentList', {
         url: '/list',
         templateUrl: 'modules/users/client/views/studentlist.client.view.html'
@@ -1096,7 +1138,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
     // credentials object
     $scope.credentials = {};
-    $scope.credentials.coursesTeaching = [];
+    $scope.credentials.courses = [];
 
     // array of class names
     $scope.classNames = [];
@@ -1114,7 +1156,18 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
     $scope.add = function(course) {
       if (course !== '') {
-        $scope.credentials.coursesTeaching.push(course);
+
+        //Creates a new object to be used for user course schema
+        var courseObj = {};
+        courseObj.courseName = course;
+        courseObj.content = "";
+        courseObj.progress = "";
+        courseObj.section = "";
+
+        //Generate number when you add the course
+        courseObj.number = Math.floor((Math.random() * 1000) + 1);
+        $scope.credentials.courses.push(courseObj);
+
       }
 
       $scope.toAdd = '';
@@ -1133,8 +1186,13 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       $scope.credentials.displayName = $scope.credentials.lastName + ', ' + $scope.credentials.firstName;
 
       console.log($scope.credentials);
-
-      $http.post('/api/auth/signup', $scope.credentials).success(function(response) {
+      var route = '/api/auth/signup/';
+      if ($scope.credentials.profileType === "Student") {
+        route = '/api/auth/signup/student';
+        console.log("Is a student");
+      }
+      
+      $http.post(route, $scope.credentials).success(function(response) {
 
         // If successful we assign the response to the global user model
         $scope.authentication.user = response;
@@ -1143,9 +1201,13 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         $location.url('/');
 
       }).error(function(response) {
+        console.log("invalid");
+        //sets error if invalid info
+        setTimeout(function(){ alert("Error: Username already exists/Enter valid information"); }, 0);
         $scope.error = response.message;
         console.log(response);
       });
+
     };
 
     $scope.signin = function(isValid) {
@@ -1165,6 +1227,9 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         // And redirect to home page
         $state.go('home');
       }).error(function(response) {
+        console.log("invalid");
+        //sets popup for invalid usernmae or password
+        setTimeout(function(){ alert("Invalid Username or Password"); }, 0);
         $scope.error = response.message;
       });
     };
@@ -1243,13 +1308,67 @@ angular.module('users').controller('PasswordController', ['$scope', '$stateParam
 
 'use strict';
 
-//controler for teacher page retrieval of students
-angular.module('users').controller('StudentListController', ['$scope', '$state', '$location', '$filter', '$http',
-    function($scope, $state, $location, $filter, $http) {
-        $http.get('/api/data/students')
+//controler for teacher page list retrieval of students
+angular.module('users').controller('StudentListController', ['$rootScope', '$scope', '$state', '$location', '$filter', '$http', 'Authentication',
+    function($rootScope, $scope, $state, $location, $filter, $http, Authentication) {
+    $scope.$state = $state;
+    $scope.authentication = Authentication;
+   // $scope.section = null;
+    $scope.user = "";
+    $scope.email = "";
+    $scope.firstname = "";
+    $scope.lastname = "";
+    $scope.check  = "hello";
+   // $scope.name = "username";
+        $http.get('/api/data/students/', $scope.authentication.user)
         .then(function(response) {
+            console.log($scope.authentication.user);
             $scope.data = response.data;
+            console.log($scope.data);
         });
+
+
+
+
+   //gets the name from the param list
+ 	$scope.getName = function(disName) {
+           $scope.user = disName.userName;
+           $scope.email = disName.email;
+           $scope.firstname = disName.firstName;
+           $scope.lastname = disName.lastName;
+           console.log("hello");
+           console.log($scope.user);
+        };
+    }
+]);
+//controller for the student teacher page
+angular.module('users').controller('StudentGetController', ['$rootScope', '$scope', '$state', '$stateParams', '$location', '$filter', '$http', 'Authentication',
+    function($rootScope, $scope, $state, $stateParams, $location, $filter, $http, Authentication) {
+
+    $scope.authentication = Authentication;
+   // $scope.section = null;
+   //testing
+   console.log("in state params:");
+   //testing
+   console.log($stateParams.username);
+   //pass to scope
+    $scope.userFinal = $stateParams.username;
+    $scope.emailFinal = $stateParams.email;
+    $scope.firstnameFinal = $stateParams.firstname;
+    $scope.lastnameFinal = $stateParams.lastname;
+
+    //testing
+   console.log("Second controller");
+   console.log($scope.userFinal);
+   console.log($scope.email);
+   console.log($scope.firstname);
+   console.log($scope.lastname);
+
+
+
+
+
+
     }
 ]);
 

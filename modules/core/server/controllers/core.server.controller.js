@@ -69,7 +69,7 @@ exports.parseQuestions = function(req, res) {
 
 // Find student data
 exports.findStudents = function(req, res) {
-  User.find({'profileType' : 'Student'}).lean().exec(function(err, users) {
+  User.find({'profileType' : 'Student', 'courseCode' : {$in: req.body.courseNums} }).lean().exec(function(err, users) {
     return res.end(JSON.stringify(users));
   });
 };

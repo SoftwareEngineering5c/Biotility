@@ -9,7 +9,7 @@ angular.module('core').controller('MainController', ['$scope', '$state', '$locat
 
         Subjects.loadSubjects().then(function(response) {
           $scope.subjects = response.data;
-            console.log($scope.subjects);
+            //console.log($scope.subjects);
         });
 
         $scope.gotoQuiz = function(subjectObj) {

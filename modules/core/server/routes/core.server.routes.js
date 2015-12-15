@@ -10,8 +10,11 @@ module.exports = function (app) {
   // Fetch subject data from database
   app.route('/api/parse/subjects').get(core.parseSubjects);
 
+  // Fetch student data from database
+  app.route('/api/data/students').post(core.findStudents);
+
   // Fetch user data from database
-  app.route('/api/data/students').get(core.findStudents);
+  app.route('/api/data/users').get(core.parseUsers);
 
   // Fetch question data from database
   app.route('/api/data/questions').get(core.parseQuestions);

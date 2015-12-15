@@ -83,8 +83,6 @@ var UserSchema = new Schema({
         trim: true,
         default: "Student"
     },
-    coursesTeaching: [Number],
-
     courseCode: {
       type: Number,
       trim: true

@@ -13,7 +13,6 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
     // credentials object
     $scope.credentials = {};
     $scope.credentials.courses = [];
-    $scope.credentials.coursesTeaching = [];
 
     // array of class names
     $scope.classNames = [];
@@ -59,13 +58,14 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
       // Add displayName
       $scope.credentials.displayName = $scope.credentials.lastName + ', ' + $scope.credentials.firstName;
-      
+
       console.log($scope.credentials);
       var route = '/api/auth/signup/';
       if ($scope.credentials.profileType === "Student") {
         route = '/api/auth/signup/student';
         console.log("Is a student");
       }
+
       $http.post(route, $scope.credentials).success(function(response) {
 
         // If successful we assign the response to the global user model
@@ -77,7 +77,9 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       }).error(function(response) {
         console.log("invalid");
         //sets error if invalid info
-        setTimeout(function(){ alert("Error: Username already exists/Enter valid information"); }, 0);
+        setTimeout(function() {
+          alert("Error: Username already exists/Enter valid information");
+        }, 0);
         $scope.error = response.message;
         console.log(response);
       });
@@ -103,7 +105,9 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       }).error(function(response) {
         console.log("invalid");
         //sets popup for invalid usernmae or password
-        setTimeout(function(){ alert("Invalid Username or Password"); }, 0);
+        setTimeout(function() {
+          alert("Invalid Username or Password");
+        }, 0);
         $scope.error = response.message;
       });
     };
