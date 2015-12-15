@@ -7,7 +7,9 @@
       <h1 id="section-tabs-header">
         <!--teacher name-->
         {{user.firstName}} {{user.lastName}}
+        {{input.courseNames}}
         {{input.courseNums}}
+
       </h1>
 
 
@@ -54,7 +56,22 @@
   <!--class scores-->
   <div class="row">
     <div class="col-md-9 col-md-offset-3" ng-show="profileVisible">
-      <h1>Class Scores</h1>
+      <h2>Classes </h2>
+
+      <a ng-repeat="d in input.courseNums"class="list-group-item">
+                
+              <!--name displayed in row-->
+                 <div class="list-group-item-heading">
+                {{d}}
+
+                </div>
+        
+          
+        </a>
+
+
+
+      <h2>Class Scores</h2>
       <h3>Select a class below</h3>
       <script type="text/ng-template" id="group-template.html">
         <div class="panel {{panelClass || 'panel-default'}}">

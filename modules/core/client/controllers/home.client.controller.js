@@ -58,11 +58,14 @@ angular.module('core').controller('ProfileController', ['$scope', '$state', '$lo
        
 
 
-        $scope.input = {};
-    $scope.input.courseNums = [];
-    $scope.authentication.user.courses.forEach(
+         $scope.input = [];
+         $scope.input.courseNums = [];
+         $scope.input.courseNames = [];
+         $scope.input.classInfo = "";
+         $scope.authentication.user.courses.forEach(
       function(element, index, array) {
-        $scope.input.courseNums.push(element.number);
+        $scope.input.courseNums.push(element.courseName + " : " + element.number);
+        //$scope.input.courseNums.push(element.number);
       }
     );
 
