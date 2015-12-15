@@ -66,6 +66,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         console.log("Is a student");
       }
 
+
+
       $http.post(route, $scope.credentials).success(function(response) {
 
         // If successful we assign the response to the global user model
@@ -78,7 +80,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         console.log("invalid");
         //sets error if invalid info
         setTimeout(function() {
-          alert("Error: Username already exists/Enter valid information");
+          alert("Error: Enter valid information");
         }, 0);
         $scope.error = response.message;
         console.log(response);

@@ -43,16 +43,37 @@ angular.module('core').controller('ProfileController', ['$scope', '$state', '$lo
 
         $scope.authentication = Authentication;
         $scope.user = $scope.authentication.user;
-
+        console.log("ProfileController");
         console.log($scope.user);
 
         $scope.oneAtATime = true;
         $scope.isTeacher = false;
         $scope.profileVisible = true;
-
+        //checks if teacher
         if ($scope.profileType === "Teacher") {
+            console.log("I am a teacher");
             $scope.isTeacher = true;
         }
+
+       
+
+        //input to put courseNames
+         $scope.input = {};
+         //courseNums array
+         $scope.input.courseNames = [];
+         //for each course in their schema
+         $scope.authentication.user.courses.forEach(
+      function(element, index, array) {
+        //stores each course Name and number of the course that a teacher has
+        $scope.input.courseNums.push(element.courseName + " : " + element.number);
+        //used for testing purposes to make sure a teacher has the correct courses displayed
+        console.log($scope.input.courseNums);
+      }
+    );
+
+    
+
+        //creates groups
         $scope.groups = [
             {
                 title: 'Cells',
@@ -87,14 +108,14 @@ angular.module('core').controller('ProfileController', ['$scope', '$state', '$lo
             console.log($scope.section);
 
         });
-
+        //gets student grades
         $scope.studentGrades = [];
         $http.get('/api/quiz_result')
           .success(function(res) {
             console.log("quiz result: ", res);
             byStudent(res);
           });
-
+          //gets student  grades by student and stores them
         var byStudent = function(allStudentGrades) {
             for (var i = 0 ; i < allStudentGrades.length; i++) {
                 console.log(allStudentGrades[i].studentName);

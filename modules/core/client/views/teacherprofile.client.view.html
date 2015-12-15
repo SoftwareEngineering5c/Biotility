@@ -1,13 +1,17 @@
 <!--teacher profile page-->
 <div class="container" ng-controller="ProfileController">
-  <h1>Edit Profile</h1>
+  <div style="margin-top: 45px;">
+    </div>
   <hr>
   <div class="row">
-    <div id="left-side" class="list-view ">
+    <div id="left-side" class="list-view " >
       <h1 id="section-tabs-header">
         <!--teacher name-->
         {{user.firstName}} {{user.lastName}}
+        
+
       </h1>
+
 
     </div>
     <!-- left column -->
@@ -46,13 +50,29 @@
           <span>{{user.userName}}</span>
         </div>
       </div>
-      
     </div>
   <!--</div>-->
-  <!--class scores-->
+  <!--class codes-->
   <div class="row">
     <div class="col-md-9 col-md-offset-3" ng-show="profileVisible">
-      <h1>Class Scores</h1>
+      <!--table to put in class codes-->
+      <table class="table table-bordered" style = "width: 30%;margin-left:-2px" border-spacing: "5px">
+        <caption>Class codes for students to register</caption>
+    <thead>
+      <h2>Classes</h2>
+      <th>Codes</th>
+    </thead>
+    <tbody>
+      <!--gets class codes from controller-->
+      <tr ng-repeat="d in input.courseNums">
+        <td>{{d}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+    <!--class scores-->
+      <h2>Class Scores</h2>
       <h3>Select a class below</h3>
       <script type="text/ng-template" id="group-template.html">
         <div class="panel {{panelClass || 'panel-default'}}">
