@@ -43,16 +43,32 @@ angular.module('core').controller('ProfileController', ['$scope', '$state', '$lo
 
         $scope.authentication = Authentication;
         $scope.user = $scope.authentication.user;
-
+        console.log("ProfileController");
         console.log($scope.user);
 
         $scope.oneAtATime = true;
         $scope.isTeacher = false;
         $scope.profileVisible = true;
-
+        //checks if teacher
         if ($scope.profileType === "Teacher") {
+            console.log("I am a teacher");
             $scope.isTeacher = true;
         }
+
+       
+
+
+        $scope.input = {};
+    $scope.input.courseNums = [];
+    $scope.authentication.user.courses.forEach(
+      function(element, index, array) {
+        $scope.input.courseNums.push(element.number);
+      }
+    );
+
+    
+
+        //creates groups
         $scope.groups = [
             {
                 title: 'Cells',
@@ -87,14 +103,14 @@ angular.module('core').controller('ProfileController', ['$scope', '$state', '$lo
             console.log($scope.section);
 
         });
-
+        //gets student grades
         $scope.studentGrades = [];
         $http.get('/api/quiz_result')
           .success(function(res) {
             console.log("quiz result: ", res);
             byStudent(res);
           });
-
+          //gets student  grades by student and stores them
         var byStudent = function(allStudentGrades) {
             for (var i = 0 ; i < allStudentGrades.length; i++) {
                 console.log(allStudentGrades[i].studentName);
