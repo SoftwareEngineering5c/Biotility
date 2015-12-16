@@ -355,8 +355,10 @@ angular.module('core').controller('ProfileController', ['$scope', '$state', '$lo
       function(element, index, array) {
         //stores each course Name and number of the course that a teacher has
         $scope.input.courseNums.push(element.courseName + " : " + element.number);
-        //used for testing purposes to make sure a teacher has the correct courses displayed
-        console.log($scope.input.courseNames);
+
+        //used for testing purposes to make sure a teacher has the correct courses
+         console.log($scope.input.courseNums);
+
       }
     );
 
