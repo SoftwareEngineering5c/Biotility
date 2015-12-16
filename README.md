@@ -147,6 +147,10 @@ The quiz question schema is defined in:
 Database connection: 
 mongodb://devteam:devteam@ds027769.mongolab.com:27769/software5c'
 
+To change the connection go to:
+*/Biotility/config/env/production.js*
+and input the new connection, along with the correct credentials
+
 
 
 
