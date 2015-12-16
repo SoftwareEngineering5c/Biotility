@@ -31,15 +31,15 @@ How to update database and server connections
 * [How to update database and server connections](#how-to-update-database-and-server-connections)
 
 
-## Deployed Page
+## Deployed Page  
 
-Our page is deployed on heroku. The following is the link to our deployed page:
+Our page is deployed on heroku. The following is the link to our deployed page:  
 
 http://biotility.herokuapp.com
 
-## Credit
+## Credit  
 
-We would like to give credit to the following organizations for their help and any code borrowed:
+We would like to give credit to the following organizations for their help and any code borrowed:  
 
 - [Bossable](http://www.bossable.com)
 ![Bossable Logo](http://www.bossable.com/wp-content/uploads/2014/09/bossable-logo.jpg)
@@ -50,7 +50,7 @@ We would like to give credit to the following organizations for their help and a
 - [Mongolab](https://mongolab.com)
 ![Mongolab Logo](https://s3.amazonaws.com/awsmp-logos/MongoLab-Logo-OnWhite.jpg)
 
-We would like to give credit to the following for any pictures used on the webpage:
+We would like to give credit to the following for any pictures used on the webpage:  
 
 - [Biotility](http://biotility.research.ufl.edu)
 - Lori Wojciechowski
@@ -59,69 +59,74 @@ We would like to give credit to the following for any pictures used on the webpa
 
 
 ## Project Features
-**Interactive Homepage to view courses**
-![](tutorial_img/clone_fork_diagram.jpg)
-Here students can select which course they want to take an assesment on or learn more about.
+**Interactive Homepage to view courses**  
+![](imgs/homepage.png)  
+Here students can select which course they want to take an assesment on or learn more about.  
 
 **Login Screen**
-![](imgs/homepage.png)
+![](imgs/login.png)  
 Here Students and Teachers can login to their account.
 
 **Registration**
-![](tutorial_img/clone_fork_diagram.jpg)
+![](imgs/register.png)  
 Don't have an account? No problem. Register on this page.
 
 **About Us**
-![](tutorial_img/clone_fork_diagram.jpg)
+![](imgs/aboutus.png)  
 Learn more about Biotility
 
 **Contact**
-![](tutorial_img/clone_fork_diagram.jpg)
+![](imgs/contact.png)  
 Learn more about the Biotility team and get their contact info.
 
 **Resources**
-![](tutorial_img/clone_fork_diagram.jpg)
+![](imgs/resources.png)  
 Get info about the topic you select.
 
 **Assesment/Quiz**
-![](tutorial_img/clone_fork_diagram.jpg)
+![](imgs/startquiz.png)  
 Students can test their knowledge here
-![](tutorial_img/clone_fork_diagram.jpg)
-Quiz Question
-![](tutorial_img/clone_fork_diagram.jpg)
-Finished
-![](tutorial_img/clone_fork_diagram.jpg)
-Congrats
 
+***Quiz Question***
+![](imgs/quizquestion.png)
+
+ ***Finished***
+![](imgs/quizfinished.png)  
+
+***Congrats***
+![](imgs/congratulations.png)  
+
+     
+     
 **Student List**
-![](tutorial_img/clone_fork_diagram.jpg)
+![](imgs/studentlist.png)     
 Here Teacher's Can View their students
-
+     
 **Student Profile**
-![](tutorial_img/clone_fork_diagram.jpg)
+![](imgs/login.png)  
 Info about students and their quizes
-
+     
 **Teacher Profile**
-![](tutorial_img/clone_fork_diagram.jpg)
+![](imgs/teacherprofile.png)     
 Info about teachers and their classes
-
+     
 **Teacher View of Student Profile**
-![](tutorial_img/clone_fork_diagram.jpg)
+![](imgs/login.png)  
 Teachers can see one of their specific students.
-
+     
 ##How to run the project locally
-
+     
 In order to run the project locally please follow the following steps:
 Running on Mac/iOS:
-1. npm install -g bower
-2. npm install -g grunt-cli
-3. npm install -g yo
-4. npm install -g-generator-meanjs
-5. git clone the repo: https://github.com/SoftwareEngineering5c/Biotility.git
-6. cd on terminal to the repo (Biotility)
-7. npm install 
-8. grunt
-
+- 1. npm install -g bower
+- 2. npm install -g grunt-cli
+- 3. npm install -g yo
+- 4. npm install -g-generator-meanjs
+- 5. git clone the repo: https://github.com/SoftwareEngineering5c/Biotility.git
+- 6. cd on terminal to the repo (Biotility)
+- 7. npm install 
+- 8. grunt
+     
 The terminal should now output:
  Biotility - Development Environment
     Environment:			development
@@ -129,28 +134,28 @@ The terminal should now output:
     Database:				mongodb://devteam:devteam@ds027769.mongolab.com:27769/software5c
     App version:			0.4.1
     MEAN.JS version:			0.4.1
-
- 9. On your internet browser type in: localhost:3000 
+     
+-  9. On your internet browser type in: localhost:3000 
  *Note: to stop the app locally press ctrl-c on the terminal*
-
-    
-## How to update database and server connections
-Everytime a user signs up the database is automatically updated.
-When a user goes to their profile page, they can edit their profile info.
-Database is automically updated as well with quiz results when a student takes a quiz.
-
-The user schema is defined in:
-*Biotility/modules/users/server/models/user.server.model.js*
-The quiz question schema is defined in:
-*Biotility/modules/quiz/server/models/quizQuestion.server.model.js*
-
-Database connection: 
-mongodb://devteam:devteam@ds027769.mongolab.com:27769/software5c'
-
-To change the connection go to:
-*/Biotility/config/env/production.js*
-and input the new connection, along with the correct credentials
-
+     
+         
+## How to update database and server connections  
+Everytime a user signs up the database is automatically updated.  
+When a user goes to their profile page, they can edit their profile info.  
+Database is automically updated as well with quiz results when a student takes a quiz.  
+     
+The user schema is defined in:  
+*Biotility/modules/users/server/models/user.server.model.js*  
+The quiz question schema is defined in:  
+*Biotility/modules/quiz/server/models/quizQuestion.server.model.js*  
+     
+Database connection:   
+mongodb://devteam:devteam@ds027769.mongolab.com:27769/software5c'  
+      
+To change the connection go to:  
+*/Biotility/config/env/production.js*  
+and input the new connection, along with the correct credentials  
+     
 
 
 
