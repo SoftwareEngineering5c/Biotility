@@ -7,7 +7,7 @@
       <img src="modules/core/client/img/brand/logo.png" alt="" style="width: 130px;">
     </a>
   </div>
-  <div ng-show="authentication.user" class="navbar-brand pull-right" ng-click="logout()">
+  <div id="logout" ng-show="authentication.user" class="navbar-brand pull-right" ng-click="logout()">
     Logout
   </div>
   <!-- Profile -->
@@ -20,7 +20,7 @@
     {{authentication.user.displayName}}
   </div>
   <!-- Login -->
-  <div ng-hide="authentication.user" class="navbar-brand pull-right">
+  <div id="login" ng-hide="authentication.user" class="navbar-brand pull-right">
     <a data-ui-sref="authentication.signin">Login</a>
   </div>
 
