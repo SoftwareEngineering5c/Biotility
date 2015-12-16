@@ -21,9 +21,7 @@ The webapp provides a hands-on way for students and teachers to interact by allo
 * [Deployed Page](#deployed-page)
 * [Credit](#credit)
 * [Project Features](#project-features)
-* [Remote repositories](#remote-repositories)
 * [How to run the project locally](#how-to-run-the-project-locally)
-* [Collaborating with GitHub](#collaborating-with-github)
 * [How to update database and server connections](#how-to-update-database-and-server-connections)
 
 
@@ -109,17 +107,17 @@ Here Teacher's Can View their students
      
 
 ###Student Profile     
-![](imgs/login.png)  
-Info about students and their quizes
+![](imgs/studentprofile.png)  
+Info about students and their quizzes. Students can edit their account info.     
      
 
 ###Teacher Profile     
 ![](imgs/teacherprofile.png)      
-Info about teachers and their classes
+Info about teachers and their classes. Teachers can edit their account info.     
      
 
 ###Teacher View of Student Profile     
-![](imgs/login.png)  
+![](imgs/studentteacher.png)  
 Teachers can see one of their specific students.
      
 
