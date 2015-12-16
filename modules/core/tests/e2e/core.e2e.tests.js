@@ -34,14 +34,14 @@ describe('Link Tests:', function() {
 
   // test resources page route
   it('should send user to subject resources page', function() {
-   element(by.repeater('subject in subjects').row(11)).element(by.id('resources')).click();;
+   element(by.repeater('subject in subjects').row(11)).element(by.id('resources')).click();
 
     expect(browser.getCurrentUrl()).toBe('http://localhost:3000/Applications/resources');
   });
 
   // test assessment page route
   it('should send user to subject resources page', function() {
-   element(by.repeater('subject in subjects').row(11)).element(by.id('assessment')).click();;
+   element(by.repeater('subject in subjects').row(11)).element(by.id('assessment')).click();
 
     expect(browser.getCurrentUrl()).toBe('http://localhost:3000/Applications/quiz');
   });
