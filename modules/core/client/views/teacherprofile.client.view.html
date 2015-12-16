@@ -73,32 +73,7 @@
 
 
         <!--class scores-->
-        <h2>Class Scores</h2>
-        <h3>Select a class below</h3>
-        <script type="text/ng-template" id="group-template.html">
-          <div class="panel {{panelClass || 'panel-default'}}">
-            <div class="panel-heading">
-              <h4 class="panel-title" style="color:#fa39c3">
-                <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
-                  <span ng-class="{'text-muted': isDisabled}">{{heading}}</span>
-                </a>
-              </h4>
-            </div>
-            <div class="panel-collapse collapse" uib-collapse="!isOpen">
-              <div class="panel-body" style="text-align: right" ng-transclude></div>
-            </div>
-          </div>
-        </script>
-
-        <uib-accordion close-others="oneAtATime">
-          <uib-accordion-group heading="{{group.title}}" ng-repeat="group in groups">
-            <p>{{group.content}}</p>
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" aria-valuenow="{{group.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{group.progress}}%;">
-                <span class="sr-only">{{group.progress}}% Complete</span>
-              </div>
-            </div>
-          </uib-accordion-group>
+        
 
       </div>
       <!--profile info-->
