@@ -47,8 +47,8 @@ We would like to give credit to the following organizations for their help and a
 ![Bootstrap Logo](http://www.w3schools.com/bootstrap/bs.png)
 - [MEANJS](http://meanjs.org)
 ![MEAN.JS Logo](http://meanjs.org/img/logo-small.png)
-- [Mongoose](http://mongoosejs.com/index.html)
-![Mongoose Logo](http://mongodb-tools.com/img/mongoose.png)
+- [Mongolab](https://mongolab.com)
+![Mongolab Logo](https://s3.amazonaws.com/awsmp-logos/MongoLab-Logo-OnWhite.jpg)
 
 We would like to give credit to the following for any pictures used on the webpage:
 
@@ -139,35 +139,17 @@ Everytime a user signs up the database is automatically updated.
 When a user goes to their profile page, they can edit their profile info.
 Database is automically updated as well with quiz results when a student takes a quiz.
 
-The user schema is defined in Biotility/modules/users/server/models/user.server.model.js
-The quiz question schema is defined in Biotility/modules/quiz/server/models/quizQuestion.server.model.js
+The user schema is defined in:
+*Biotility/modules/users/server/models/user.server.model.js*
+The quiz question schema is defined in:
+*Biotility/modules/quiz/server/models/quizQuestion.server.model.js*
+
+Database connection: 
+mongodb://devteam:devteam@ds027769.mongolab.com:27769/software5c'
 
 
 
 
 
 
-Aside : 
-Ok let's make this visible to all now.
 
-_Steps to push to our Github Repository_
-
-Step 1: `git fetch --all` 
-
-This will update all the branches you've ever checked out with changes that others have made.
- 
-Step 2: `git pull origin YOUR_BRANCH_HERE` 
-
-This will pull the _updated_ information into your _local_ repository copy.
-
-Step 3: `git add -A` 
-
-This will mark all of the files you've changed for adding.
-
-Step 4: `git commit -m "YOUR_MESSAGE_HERE"`
-
-Leave a message giving a short description of what changes you've made.
- 
-Step 5: `git push origin YOUR_BRANCH_HERE` 
-
-Finally, push your changes to the branch you're working on.
