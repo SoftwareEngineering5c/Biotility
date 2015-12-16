@@ -64,7 +64,7 @@ We would like to give credit to the following for any pictures used on the webpa
 Here students can select which course they want to take an assesment on or learn more about.
 
 **Login Screen**
-![](tutorial_img/clone_fork_diagram.jpg)
+![](imgs/homepage.png)
 Here Students and Teachers can login to their account.
 
 **Registration**
@@ -146,6 +146,10 @@ The quiz question schema is defined in:
 
 Database connection: 
 mongodb://devteam:devteam@ds027769.mongolab.com:27769/software5c'
+
+To change the connection go to:
+*/Biotility/config/env/production.js*
+and input the new connection, along with the correct credentials
 
 
 
