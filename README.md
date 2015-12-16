@@ -93,15 +93,15 @@ Students can test their knowledge here
 
 ###Quiz Question     
 ![](imgs/quizquestion.png)     
-     
+A quiz question.
 
- ###Finished        
+###Finished        
 ![](imgs/quizfinished.png)  
+Click button when finished.
      
-
 ###Congrats     
 ![](imgs/congratulations.png)  
-     
+Results screen  
      
 ###Student List     
 ![](imgs/studentlist.png)     
