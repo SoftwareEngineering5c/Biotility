@@ -1,6 +1,6 @@
-# SoftwareEngineering5c  ReadMe
+# Biotility
 
-#Intro
+# Intro
 
 This ReadME will give a brief description on our groups project for Biotility. 
 Biotility at University of Florida CERHB is committed to providing high-quality education and training to facilitate the professional growth of each participant. Our short-courses are attended by professionals, students preparing to enter industry careers, and researchers, all of whom seek to expand and deepen their knowledge in technical and regulatory details unique to biotechnology industries and translational research. The Biotechnician Assistant Credentialing Exam (BACE) is an industry-recognized exam designed to assess core skills and knowledge sets identified by industry, and represented within the academic and performance standards of Florida’s secondary Biotechnology program. The test has been vetted by the state’s industry organization BioFlorida, representing representing more than 3,000 companies and research organizations in the biotechnology, pharmaceuticals, medical devices and bioagriculture sectors. 
@@ -8,7 +8,7 @@ Biotility at University of Florida CERHB is committed to providing high-quality 
 
 The webapp provides a hands-on way for students and teachers to interact by allowing students to sign up for courses, take quizzes, and practice for the BACE.   
 
-##Our Development Team  
+## Our Development Team  
 *Carl Amko* Scrum Master + Developer  
 *Rebecca Raymond* Product Manager + Developer  
 *David Yeung* Developer  
@@ -59,69 +59,69 @@ Here students can select which course they want to take an assesment on or learn
      
     
 
-###Login Screen      
+### Login Screen      
 ![](imgs/login.png)  
 Here Students and Teachers can login to their account.
        
 
-###Registration          
+### Registration          
 ![](imgs/register.png)  
 Don't have an account? No problem. Register on this page.
       
      
-###About Us         
+### About Us         
 ![](imgs/aboutus.png)  
 Learn more about Biotility
      
 
-###Contact     
+### Contact     
 ![](imgs/contact.png)  
 Learn more about the Biotility team and get their contact info.
      
 
-###Resources     
+### Resources     
 ![](imgs/resources.png)  
 Get info about the topic you select.
      
 
-###Assesment/Quiz     
+### Assesment/Quiz     
 ![](imgs/startquiz.png)  
 Students can test their knowledge here
      
 
-###Quiz Question     
+### Quiz Question     
 ![](imgs/quizquestion.png)     
 A quiz question.
 
-###Finished        
+### Finished        
 ![](imgs/quizfinished.png)  
 Click button when finished.
      
-###Congrats     
+### Congrats     
 ![](imgs/congratulations.png)  
 Results screen  
      
-###Student List     
+### Student List     
 ![](imgs/studentlist.png)     
 Here Teacher's Can View their students
      
 
-###Student Profile     
+### Student Profile     
 ![](imgs/studentprofile.png)  
 Info about students and their quizzes. Students can edit their account info.     
      
 
-###Teacher Profile     
+### Teacher Profile     
 ![](imgs/teacherprofile.png)      
 Info about teachers and their classes. Teachers can edit their account info.     
      
 
-###Teacher View of Student Profile     
+### Teacher View of Student Profile     
 ![](imgs/studentteacher.png)  
 Teachers can see one of their specific students.
      
 
-##How to run the project locally  
+## How to run the project locally  
      
 In order to run the project locally please follow the following steps:
 Running on Mac/iOS:
